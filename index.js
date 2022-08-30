@@ -116,6 +116,7 @@ function initMap() {
     },
   ];
 
+  // Creaza markerele pe  mapa si le face butonul care  ne arata traseul parcurs
   for (let i = 0; i < markers.length; i++) {
     const currMarker = markers[i];
 
@@ -125,7 +126,6 @@ function initMap() {
       draggable: false,
       icon: 'images/gym.png',
     });
-    console.log(marker);
 
     const contentInfo = `
     <h3 id="firstHeading" class="firstHeading">Sala ${currMarker.id}</h3> 
@@ -158,6 +158,30 @@ function initMap() {
     });
   }
 
+  var lis = document.getElementById('list').getElementsByTagName('li');
+
+  for (var i = 0; i < lis.length; i++) {
+    lis[i].addEventListener('click', doStuff);
+  }
+
+  function doStuff() {
+    alert(this.innerHTML);
+  }
+
+  //
+  //
+  //
+  //
+  // Asa imi  deschide toate iconitele daca adaug mai sus.
+  //
+  //   document.getElementById('list').addEventListener('click', () => {
+  //   infowindow.open({
+  //     anchor: marker,
+  //     map,
+  //     shouldFocus: false,
+  //   });
+  // });
+
   function calculateAndDisplayRoute(
     directionsService,
     directionsRenderer,
@@ -184,10 +208,17 @@ function initMap() {
           const routeSegment = i + 1;
 
           summaryPanel.innerHTML +=
-            '<b>Ruta parcursa catre locatie: ' + '</b><br>';
-          summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-          summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-          summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            '<b>Punctul de plecare este: ' +
+            '<br>' +
+            route.legs[i].start_address +
+            '<br>';
+          summaryPanel.innerHTML +=
+            '<b> Punctul de sosire este: ' +
+            '<br>' +
+            route.legs[i].end_address +
+            '<br>';
+          summaryPanel.innerHTML +=
+            '<b>Distanta este de: ' + '<b>' + route.legs[i].distance.text;
         }
       })
       .catch(e => window.alert('Directions request failed due to ' + status));
