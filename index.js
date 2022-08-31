@@ -1,23 +1,39 @@
+let map, origin;
+let locatiaActuala;
+document
+  .querySelector('.permission-granted-button')
+  .addEventListener('click', () => {
+    navigator.geolocation.watchPosition(
+      position => {
+        origin = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        // console.log(origin);
+        map.setCenter(origin);
+        locatiaActuala = new google.maps.Marker({
+          position: origin,
+          map: map,
+          draggable: true,
+          icon: 'images/walk.png',
+        });
+      },
+      () => {
+        handleLocationError(true, yourLocation, map.getCenter());
+      }
+    );
+  });
 function initMap() {
   //locatia mea
-  const origin = {
+  origin = {
     lat: 44.44116,
     lng: 26.05178,
-  };
-  // destinatia
-  const destinationOne = {
-    lat: 44.44413,
-    lng: 26.04909,
-  };
-  const destinationTwo = {
-    lat: 44.44365,
-    lng: 26.05572,
   };
 
   // constantele de calculare a distantei si map-ul
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
-  const map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 17,
     center: origin,
   });
@@ -25,12 +41,6 @@ function initMap() {
   directionsRenderer.setMap(map);
 
   /// LOCATIA MEA ACTUALA
-  const locatiaActuala = new google.maps.Marker({
-    position: { lat: 44.44116, lng: 26.05136625245236 },
-    map: map,
-    draggable: true,
-    icon: 'images/walk.png',
-  });
 
   // CREAREA DE MAI MULTE MARKERE DE HARTA DIFERITE + POP-UP URI
   const markers = [
@@ -128,9 +138,9 @@ function initMap() {
     });
 
     const contentInfo = `
-    <h3 id="firstHeading" class="firstHeading">Sala ${currMarker.id}</h3> 
-    <h5>Program: ${currMarker.program}</h5>
-    <button id='sala-${currMarker.id}'>Get Direction -></button>
+    <h3 id="firstHeading" class="firstHeading" >Sala ${currMarker.id}</h3> 
+    <h5 class='headingContent'>Program: ${currMarker.program}</h5>
+    <button id='sala-${currMarker.id}' class="btn">Get Direction -></button>
     `;
 
     const infowindow = new google.maps.InfoWindow({
@@ -158,39 +168,19 @@ function initMap() {
     });
   }
 
-  var lis = document.getElementById('list').getElementsByTagName('li');
-
-  for (var i = 0; i < lis.length; i++) {
-    lis[i].addEventListener('click', doStuff);
-  }
-
-  function doStuff() {
-    alert(this.innerHTML);
-  }
-
-  //
-  //
-  //
-  //
-  // Asa imi  deschide toate iconitele daca adaug mai sus.
-  //
-  //   document.getElementById('list').addEventListener('click', () => {
-  //   infowindow.open({
-  //     anchor: marker,
-  //     map,
-  //     shouldFocus: false,
-  //   });
-  // });
-
+  /**
+   *
+   * Function who is able to calculate my route and write  the distance
+   */
   function calculateAndDisplayRoute(
     directionsService,
     directionsRenderer,
-    origin,
+    yourLocation,
     destination
   ) {
     directionsService
       .route({
-        origin: new google.maps.LatLng(origin.lat, origin.lng),
+        origin: new google.maps.LatLng(yourLocation.lat, yourLocation.lng),
         destination: new google.maps.LatLng(destination.lat, destination.lng),
         optimizeWaypoints: true,
         travelMode: google.maps.TravelMode.WALKING,
@@ -208,17 +198,11 @@ function initMap() {
           const routeSegment = i + 1;
 
           summaryPanel.innerHTML +=
-            '<b>Punctul de plecare este: ' +
-            '<br>' +
-            route.legs[i].start_address +
-            '<br>';
+            'Punctul de plecare este: ' + route.legs[i].start_address + '<br>';
           summaryPanel.innerHTML +=
-            '<b> Punctul de sosire este: ' +
-            '<br>' +
-            route.legs[i].end_address +
-            '<br>';
+            ' Punctul de sosire este: ' + route.legs[i].end_address + '<br>';
           summaryPanel.innerHTML +=
-            '<b>Distanta este de: ' + '<b>' + route.legs[i].distance.text;
+            'Distanta este de: ' + route.legs[i].distance.text;
         }
       })
       .catch(e => window.alert('Directions request failed due to ' + status));
@@ -226,4 +210,5 @@ function initMap() {
 }
 
 window.initMap = initMap;
+
 // [END maps_directions_waypoints]
