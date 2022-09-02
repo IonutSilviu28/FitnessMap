@@ -168,6 +168,19 @@ function initMap() {
     });
   }
 
+  // create lista de sali
+  for (let i = 0; i < markers.length; i++) {
+    const getdata = markers[i];
+    document.getElementById('containerRight').innerHTML += `
+    <ul class='lista'>
+    <li>
+    <span class='name'>Sala</span>
+    <span class='number'>${[i + 1]}</span>
+    <span class='string'>Program: ${getdata.program}</span>
+    </li>
+    </ul>
+    `;
+  }
   /**
    *
    * Function who is able to calculate my route and write  the distance

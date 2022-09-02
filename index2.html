@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
-<!-- [START maps_directions_waypoints] -->
 <html>
   <head>
     <title>Maps App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link
       rel="stylesheet"
@@ -27,74 +21,27 @@
               Permite accesul la locatie
             </button>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-9">
           <div id="containerMap">
             <div id="map"></div>
             <div id="sidebar"></div>
-            <button id="getDirection" hidden>Get-Direction</button>
           </div>
-          <div id="containerLista">
-            <div id="containerRight">
-              <div id="containerPanel">
-                <div id="directions-panel"></div>
-              </div>
-              <h2 id="header">Lista salilor din oras</h2>
-              <ul class="lista" id="list">
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">1</span>
-                  <span class="program">Program: 07:00 -- 24:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">2</span>
-                  <span class="program">non-stop</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">3</span>
-                  <span class="program">07:30 -- 24:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">4</span>
-                  <span class="program">12:00 -- 24:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">5</span>
-                  <span class="program">01:00 -- 18:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">6</span>
-                  <span class="program">00:00 -- 24:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">7</span>
-                  <span class="program">00:00 -- 20:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">8</span>
-                  <span class="program">non-stop</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">9</span>
-                  <span class="program">10:00 -- 24:00</span>
-                </li>
-                <li>
-                  <span clas="name">Sala</span>
-                  <span class="number">10</span>
-                  <span class="program">non-stop</span>
-                </li>
-              </ul>
+        </div>
+        <div class="col-12 col-md-12 col-lg-3">
+          <div id="containerRight">
+            <div id="containerPanel">
+              <div id="directions-panel"></div>
             </div>
+            <h2 id="header">List of the gyms</h2>
           </div>
         </div>
       </div>
+      <!-- Aici se  termina containerul pentru map -->
     </div>
+
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8HN7QFq00LOnL25a3hANqZnsyr2OwM1w&callback=initMap&v=weekly"
       defer
